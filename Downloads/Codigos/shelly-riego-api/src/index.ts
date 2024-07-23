@@ -4,15 +4,11 @@ import fs from 'fs';
 import https from 'https';
 import { CONFIG } from './config/config';
 import { controlDeviceOutput } from './Api';
-import dotenv from 'dotenv';
 
-// Load environment variables from .env file
-dotenv.config();
-
-// Load SSL certificates from environment variables
+// Load SSL certificates
 const sslOptions = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH)
+  key: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/fullchain.pem')
 };
 
 const app = express();
