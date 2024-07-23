@@ -29,6 +29,16 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 dotenv.config();
+import fs from 'fs';
+import https from 'https';
+import { CONFIG } from './config/config';
+import { controlDeviceOutput } from './Api';
+
+// Load SSL certificates
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/fullchain.pem')
+};
 
 const app = express();
 const port = process.env.PORT || 3080;
@@ -51,4 +61,8 @@ app.post('/api/riego', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Servidor proxy corriendo en http://localhost:${port}`);
+});
+// Create HTTPS server
+https.createServer(sslOptions, app).listen(CONFIG.port, () => {
+  console.log(`Servidor proxy corriendo en https://localhost:${CONFIG.port}`);
 });
