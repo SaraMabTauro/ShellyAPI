@@ -14,8 +14,8 @@ const SHELLY_IP = process.env.SHELLY_IP || '192.168.1.100'; // Asegúrate de con
 
 // Load SSL certificates
 const sslOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/she.soursop.lat/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/shell.soursop.lat/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/shell.soursop.lat/fullchain.pem')
 };
 
 // Configure CORS
@@ -39,7 +39,6 @@ app.post('/api/riego', async (req, res) => {
   }
 });
 
-// Crear y ejecutar el servidor HTTPS
 https.createServer(sslOptions, app).listen(port, () => {
   console.log(`Servidor proxy corriendo en https://localhost:${port}`);
 });
